@@ -1,0 +1,28 @@
+{
+  "name": "time-track",
+  "version": "1.0.0",
+  "description": "Freelance projeler için zaman ve görev takip masaüstü uygulaması",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "rebuild": "npx @electron/rebuild",
+    "postinstall": "npx @electron/rebuild"
+  },
+  "keywords": [
+    "time-tracking",
+    "freelance",
+    "electron",
+    "desktop"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@electron/rebuild": "^4.0.4",
+    "better-sqlite3": "^11.0.0",
+    "electron": "^36.0.0",
+    "exceljs": "^4.4.0",
+    "json2csv": "^6.0.0-alpha.2"
+  }
+}

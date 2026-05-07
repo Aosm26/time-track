@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>TimeTrack Mini</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+      background: transparent;
+      user-select: none;
+      -webkit-app-region: drag;
+    }
+    .mini-container {
+      width: 280px;
+      height: 80px;
+      background: rgba(10, 10, 26, 0.92);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 16px;
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+    .mini-info { flex: 1; overflow: hidden; }
+    .mini-project {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mini-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      letter-spacing: 1px;
+    }
+    .mini-time.running { color: #10b981; }
+    .mini-time.suspended { color: #f59e0b; }
+    .mini-btn {
+      -webkit-app-region: no-drag;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .mini-btn-stop {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white;
+    }
+    .mini-btn-stop:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+    }
+    .mini-btn-open {
+      -webkit-app-region: no-drag;
+      background: transparent;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #94a3b8;
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .mini-btn-open:hover {
+      background: rgba(99, 102, 241, 0.15);
+      color: #e2e8f0;
+    }
+    .mini-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      -webkit-app-region: no-drag;
+    }
+  </style>
+</head>
+<body>
+  <div class="mini-container">
+    <div class="mini-info">
+      <div class="mini-project" id="miniProject">—</div>
+      <div class="mini-time" id="miniTime">00:00:00</div>
+    </div>
+    <div class="mini-actions">
+      <button class="mini-btn mini-btn-stop" id="miniStop" title="Durdur">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+      </button>
+      <button class="mini-btn-open" id="miniOpen" title="Ana Pencere">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const timeEl = document.getElementById('miniTime');
+    const projectEl = document.getElementById('miniProject');
+
+    function formatTime(s) {
+      const h = Math.floor(s / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = s % 60;
+      return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+    }
+
+    window.timeTrack.on('timer:tick', (data) => {
+      timeEl.textContent = formatTime(data.elapsedSeconds);
+      timeEl.className = `mini-time ${data.state || ''}`;
+      if (data.projectName) projectEl.textContent = data.projectName;
+    });
+
+    window.timeTrack.on('state:changed', (data) => {
+      if (data.newState === 'idle') {
+        timeEl.textContent = '00:00:00';
+        timeEl.className = 'mini-time';
+        projectEl.textContent = '—';
+      }
+    });
+
+    document.getElementById('miniStop').addEventListener('click', async () => {
+      await window.timeTrack.timer.stop();
+    });
+
+    document.getElementById('miniOpen').addEventListener('click', () => {
+      window.timeTrack.miniMode.showMain();
+    });
+  </script>
+</body>
+</html>

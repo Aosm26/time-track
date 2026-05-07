@@ -1,0 +1,303 @@
+/* ═══════════════════════════════════════════
+   TimeTrack — Design System
+   ═══════════════════════════════════════════ */
+
+:root {
+  /* Colors — Dark Theme */
+  --bg-primary: #0a0a1a;
+  --bg-secondary: #0f0f23;
+  --bg-tertiary: #161632;
+  --bg-card: rgba(22, 22, 50, 0.7);
+  --bg-card-hover: rgba(30, 30, 65, 0.8);
+  --bg-input: rgba(15, 15, 35, 0.8);
+
+  --border-color: rgba(99, 102, 241, 0.15);
+  --border-hover: rgba(99, 102, 241, 0.3);
+
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #0f0f23;
+
+  --accent-primary: #6366f1;
+  --accent-secondary: #8b5cf6;
+  --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --accent-glow: rgba(99, 102, 241, 0.4);
+
+  --success: #10b981;
+  --success-glow: rgba(16, 185, 129, 0.3);
+  --warning: #f59e0b;
+  --warning-glow: rgba(245, 158, 11, 0.3);
+  --danger: #ef4444;
+  --danger-glow: rgba(239, 68, 68, 0.3);
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+
+  --text-xs: 0.7rem;
+  --text-sm: 0.8rem;
+  --text-base: 0.875rem;
+  --text-lg: 1rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-timer: 3.5rem;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px var(--accent-glow);
+
+  /* Sidebar */
+  --sidebar-width: 200px;
+
+  /* Title bar */
+  --titlebar-height: 36px;
+
+  /* Status bar */
+  --statusbar-height: 28px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Reset ───────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+/* ── Title Bar ───────────────────────────── */
+.title-bar {
+  height: var(--titlebar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  -webkit-app-region: drag;
+  position: relative;
+  z-index: 100;
+}
+
+.title-bar-drag {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: var(--space-4);
+}
+
+.title-bar-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.title-bar-controls {
+  display: flex;
+  -webkit-app-region: no-drag;
+}
+
+.title-btn {
+  width: 46px;
+  height: var(--titlebar-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.title-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+.title-btn-close:hover {
+  background: var(--danger);
+  color: white;
+}
+
+/* ── App Layout ──────────────────────────── */
+.app-container {
+  display: flex;
+  height: calc(100vh - var(--titlebar-height) - var(--statusbar-height));
+}
+
+/* ── Sidebar ─────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-3) 0;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 0 var(--space-2);
+}
+
+.sidebar-footer {
+  padding: 0 var(--space-2);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  width: 100%;
+  text-align: left;
+}
+
+.nav-item:hover {
+  background: rgba(99, 102, 241, 0.08);
+  color: var(--text-primary);
+}
+
+.nav-item.active {
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--accent-primary);
+}
+
+.nav-item.active svg {
+  stroke: var(--accent-primary);
+}
+
+.nav-item-mini {
+  border-top: 1px solid var(--border-color);
+  border-radius: 0;
+  padding-top: var(--space-4);
+  margin-top: var(--space-2);
+}
+
+/* ── Main Content ────────────────────────── */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--bg-primary);
+  position: relative;
+}
+
+.main-content::-webkit-scrollbar {
+  width: 6px;
+}
+.main-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.main-content::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.2);
+  border-radius: 3px;
+}
+
+/* ── Views ───────────────────────────────── */
+.view {
+  display: none;
+  padding: var(--space-6);
+  animation: fadeSlideIn 0.3s ease;
+}
+
+.view-active {
+  display: block;
+}
+
+/* ── Status Bar ──────────────────────────── */
+.status-bar {
+  height: var(--statusbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-4);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.status-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.status-indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: background var(--transition-base);
+}
+
+.status-indicator.running {
+  background: var(--success);
+  box-shadow: 0 0 8px var(--success-glow);
+  animation: pulse 2s infinite;
+}
+
+.status-indicator.suspended {
+  background: var(--warning);
+  box-shadow: 0 0 8px var(--warning-glow);
+}
+
+/* ── Utility ─────────────────────────────── */
+.hidden { display: none !important; }
+
+/* ── Scrollbar Global ────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.2); border-radius: 3px; }
