@@ -1,4 +1,3 @@
-taskkill /F /IM electron.exe 2>$null; Write-Host "done"
 <div align="center">
 
 # ⏱️ TimeTrack
