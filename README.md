@@ -1,3 +1,4 @@
+taskkill /F /IM electron.exe 2>$null; Write-Host "done"
 <div align="center">
 
 # ⏱️ TimeTrack
@@ -38,7 +39,7 @@ Built with **Electron** · **SQLite** · **Vanilla JS**
 - [Node.js](https://nodejs.org/) (v18 or higher)
 - [Git](https://git-scm.com/)
 
-### Installation
+### Installation & Development
 
 ```bash
 # Clone the repository
@@ -48,11 +49,27 @@ cd time-track
 # Install dependencies
 npm install
 
-# Start the application
+# Start the application in development mode
 npm start
 ```
 
 > **Note:** Native modules (`better-sqlite3`) are automatically rebuilt for Electron during `npm install` via the `postinstall` script.
+
+### 📦 Building & Packaging (Desktop App)
+
+To compile and package the application as a standalone desktop executable (`.exe`) with an installer and desktop shortcut:
+
+```bash
+# Build the standalone Windows installer (.exe)
+npm run dist
+
+# Or, package the app into a directory without building an installer (fast test build)
+npm run pack
+```
+
+The output files will be generated in the `dist/` directory:
+- `dist/TimeTrack Setup 1.0.0.exe`: The installer setup file. Running this installs the application, adds it to the Start Menu, and creates a desktop shortcut with the application icon.
+- `dist/win-unpacked/TimeTrack.exe`: The unpacked executable, which can be run directly without installing.
 
 ## ⌨️ Keyboard Shortcuts
 

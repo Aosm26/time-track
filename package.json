@@ -6,8 +6,9 @@
   "scripts": {
     "start": "electron .",
     "dev": "electron . --dev",
-    "rebuild": "npx @electron/rebuild",
-    "postinstall": "npx @electron/rebuild"
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "keywords": [
     "time-tracking",
@@ -19,10 +20,34 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@electron/rebuild": "^4.0.4",
     "better-sqlite3": "^11.0.0",
-    "electron": "^36.0.0",
     "exceljs": "^4.4.0",
     "json2csv": "^6.0.0-alpha.2"
+  },
+  "devDependencies": {
+    "electron": "^36.0.0",
+    "electron-builder": "^26.8.1"
+  },
+  "build": {
+    "appId": "com.timetrack.app",
+    "productName": "TimeTrack",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "src/renderer/assets/icons/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "TimeTrack"
+    }
   }
 }
